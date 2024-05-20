@@ -1,47 +1,14 @@
-create table if not EXISTS genre (
+create table if not EXISTS bank account (
 id SERIAL primary key,
-genre_name VARCHAR(60) not null
+number_account VARCHAR(60) not null,
+date_of_start DATE NOT NULL,
+date_of_stop DATE NOT NULL,
+amount_account integer NOT NULL
 );
 
-create table if not exists musician (
-id SERIAL primary key,
-musician_name VARCHAR(60) not null
-);
-
-create table if not exists GenreMusician(
-id serial primary key,
-genre_id INTEGER references genre(id),
-musician_id INTEGER references musician(id)
-);
-
-create table if not exists album(
-id SERIAL primary key,
-album_name VARCHAR(60) not null,
-relise DATE not null check (relise >= '01.01.1960')
-);
-
-create table if not exists AlbumMusician(
-id serial primary key,
-album_id INTEGER references album(id),
-musician_id INTEGER references musician(id)
-);
-
-create table if not exists collection(
-id SERIAL primary key,
-collection_name VARCHAR(60) not null,
-collection_date DATE not null check (collection_date >= '01.01.1960')
-);
-
-create table if not exists track(
-id SERIAL primary key,
-album_id INTEGER not null references album(id),
-collection_id INTEGER not null references collection(id),
-track_name VARCHAR(60) not null,
-track_duration time not null check (track_duration <= '10:00:00')
-);
-
-create table if not exists TrackCollection(
-id serial primary key,
-Track_id integer references track(id),
-Collection_id integer references collection(id)
+CREATE TABLE IF NOT EXISTS calendar (
+ID SERIAL PRIMARY KEY,
+contrack_number integer NOT NULL,
+payment_date DATE NOT NULL,
+repayment_amount integer NOT NULL
 );

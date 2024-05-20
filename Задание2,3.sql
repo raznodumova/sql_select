@@ -1,8 +1,7 @@
 --ЗАДАНИЕ 2
 SELECT track_name, track_duration
 FROM track
-ORDER BY track_duration DESC
-LIMIT 1;
+WHERE track_duration = (SELECT MAX(track_duration) FROM track);
 
 SELECT track_name, track_duration
 FROM track
@@ -38,11 +37,17 @@ FROM album
 JOIN track ON album.id = track.album_id
 GROUP BY album.album_name;
 
-SELECT musician.musician_name
+SELECT musician_name
 FROM musician
-LEFT JOIN albummusician ON musician.id = albummusician.musician_id
-LEFT JOIN album ON albummusician.album_id = album.id
-WHERE album.relise NOT BETWEEN '2020-01-01' AND '2020-12-31';
+WHERE id NOT IN (
+ SELECT musician_id
+ FROM albummusician
+ WHERE album_id IN (
+ SELECT id
+ FROM album
+ WHERE relise >= '2020-01-01' AND relise < '2021-01-01'
+ )
+);
 
 SELECT collection.collection_name
 FROM collection
